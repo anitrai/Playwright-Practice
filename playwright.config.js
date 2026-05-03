@@ -37,6 +37,7 @@ export default defineConfig({
       use: {
         browserName: "chromium",
         headless: true,
+        TestIdAttribute:"testid", // used for page.getByTestId()
         trace: "retain-on-failure", // off, on,retain-on-failure, on-first-retry
         video:"retain-on-failure", // off,on,retain-on-failure,on-first-retry
         screenshot:"only-on-failure", // off,on,only-on-failure
