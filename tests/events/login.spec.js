@@ -1,12 +1,14 @@
-let { pommanager } = require('../../pages/events/pommanager.js');
 let { events } = require('../../fixtures/events/globalFixtures.js');
 let { expect } = require('@playwright/test');
 
-events.describe('Login page', () => {
+events.describe('@Login page', () => {
 
-    events.beforeEach()
-    events('login successfull if all valid', ({page}) => {
-     
+    events.beforeEach(async ({ login }) => {
+        await login.goToLogin();
+    })
 
+
+    events('login successfull if all valid', async ({ page, login, loginData }) => {
+        await login.fillEmail(loginData.username);
     })
 })

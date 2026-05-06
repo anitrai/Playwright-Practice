@@ -29,43 +29,47 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [['html', { open: "always" }]], // always || on-failure || never
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-
+  use: { baseURL: "https://eventhub.rahulshettyacademy.com" },
   /* Configure projects for major browsers */
-  projects: [
+  /* every use in projects will override & extend main use*/
+  projects: [ 
     {
-      name: 'chromium',
+      name: 'event_chromium',
       use: {
         browserName: "chromium",
+        //baseURL:"https://eventhub.rahulshettyacademy.com",
         headless: true,
-        TestIdAttribute:"testid", // used for page.getByTestId()
+        TestIdAttribute: "testid", // used for page.getByTestId()
         trace: "retain-on-failure", // off, on,retain-on-failure, on-first-retry
-        video:"retain-on-failure", // off,on,retain-on-failure,on-first-retry
-        screenshot:"only-on-failure", // off,on,only-on-failure
+        video: "retain-on-failure", // off,on,retain-on-failure,on-first-retry
+        screenshot: "only-on-failure", // off,on,only-on-failure
         ...devices['Desktop Chrome'],
         //viewport : {width: 280 , height:300} 
       },
     },
 
     {
-      name: 'firefox',
-      use: { 
+      name: 'event_firefox',
+      use: {
         browserName: "firefox",
         headless: true,
         trace: "retain-on-failure", // off, on,retain-on-failure, on-first-retry
-        video:"retain-on-failure", // off,on,retain-on-failure,on-first-retry
-        screenshot:"only-on-failure", // off,on,only-on-failure
-        ...devices['Desktop Firefox'] },
+        video: "retain-on-failure", // off,on,retain-on-failure,on-first-retry
+        screenshot: "only-on-failure", // off,on,only-on-failure
+        ...devices['Desktop Firefox']
+      },
     },
 
     {
-      name: 'webkit',
-      use: { 
+      name: 'event_webkit',
+      use: {
         browserName: "webkit",
         headless: true,
         trace: "retain-on-failure", // off, on,retain-on-failure, on-first-retry
-        video:"retain-on-failure", // off,on,retain-on-failure,on-first-retry
-        screenshot:"only-on-failure", // off,on,only-on-failure
-        ...devices['Desktop Safari'] },
+        video: "retain-on-failure", // off,on,retain-on-failure,on-first-retry
+        screenshot: "only-on-failure", // off,on,only-on-failure
+        ...devices['Desktop Safari']
+      },
     },
 
     /* Test against mobile viewports. */

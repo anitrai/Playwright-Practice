@@ -6,6 +6,10 @@ class login {
         this.signin = this.page.getByRole('button',{name: "Sign In"});
     }
 
+    async goToLogin(){
+        await this.page.goto('/login');
+    }
+
     async fillEmail(email){
         await this.email.fill(email);
     }
