@@ -1,8 +1,8 @@
 let {login} = require('./login.js');
 
 class pommanager {
-    constructor(){
-        this.loginObj = new login();
+    constructor(page){
+        this.loginObj = new login(page);
     }
 
     getLoginObj(){
