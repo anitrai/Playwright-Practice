@@ -19,6 +19,11 @@ class login {
         ])
     }
 
+    async clearInput() {
+        await this.email.clear();
+        await this.password.clear();
+    }
+
     async fillEmail(email) {
         await this.email.fill(email);
     }
