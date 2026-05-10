@@ -2,7 +2,12 @@
   "name": "playwright-automation",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "event-chrome" : "npx playwright test --project event_chromium --headed",
+    "event-firefox" : "npx playwright test --project event_firefox --headed",
+    "event-webkit" : "npx playwright test --project event_webkit --headed"
+
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
