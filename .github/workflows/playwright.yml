@@ -27,10 +27,10 @@ on:
         default: '1'
         type: choice
         options:
-        - '0'
-        - '1'
-        - '2'
-        - '3'
+         - '0'
+         - '1'
+         - '2'
+         - '3'
       workers:
         description: "Pass workers count parallel run"
         default: '2'
@@ -70,10 +70,12 @@ jobs:
             --timeout=$TIMEOUT"
         
         if [[ "$GREP" != "" ]]; then
-        CMD="$CMD --grep='$GREP'"
+          CMD="$CMD --grep='$GREP'"
         fi
         
         echo "Trigger event name: ${{ github.event_name }}"
+        echo "Branch        : ${{ github.ref_name }}"
+        echo "Default branch: ${{ github.event.repository.default_branch }}"
         echo "CMD: $CMD"
         
         # eval treats that string as an actual command and runs it
