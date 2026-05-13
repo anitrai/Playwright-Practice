@@ -66,8 +66,8 @@ jobs:
         TIMEOUT="${{ github.event.inputs.timeout || '30000' }}"
 
         # ✅ Correct — shell variable uses $CMD & ${{ }} reserved for github Actions expression — inputs, secrets, env, github context
-        CMD="npx playwright test --project=$PROJECT --config=$CONFIG --workers=$WORKERS --retries=$RETRIES \
-            --timeout=$TIMEOUT"
+        CMD="npx playwright test --project=$PROJECT --config=$CONFIG --workers=$WORKERS --retries=$RETRIES --timeout=$TIMEOUT"
+            
         
         if [[ "$GREP" != "" ]]; then
           CMD="$CMD --grep='$GREP'"
