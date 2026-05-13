@@ -1,4 +1,4 @@
-let {login} = require('./login.js');
+let {login} = require('./login');
 
 class pommanager {
     constructor(page){

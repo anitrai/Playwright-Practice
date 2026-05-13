@@ -1,4 +1,4 @@
-let { events } = require('../../fixtures/events/globalFixtures.js');
+let { events } = require('../fixtures/globalFixtures.js');
 let { expect } = require('@playwright/test');
 
 events.describe('@Login page', () => {

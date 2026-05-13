@@ -5,6 +5,44 @@ on:
   pull_request:
     branches: [ main, master ]
   workflow_dispatch:
+    inputs: 
+      project:
+        description: "Pass Project name"
+        default: "event_chromium"
+        type: string
+      grep:
+        description: "Pass specific test case name to run"
+        default: ""
+        type: string
+      config:
+        description: "Pass config file name"
+        default: "playwright.config.js"
+        type: choice
+        options: 
+         - playwright.config.js
+         - playwright.staging.config.js
+         - playwright.prod.config.js
+      retries:
+        description: "Pass retry count for failing test case"
+        default: '1'
+        type: choice
+        options:
+        - '0'
+        - '1'
+        - '2'
+        - '3'
+      workers:
+        description: "Pass workers count parallel run"
+        default: '2'
+        type: string
+      timeout:
+        description: "Test timeout in ms"
+        default: '30000'
+        type: string
+  schedule:
+    - cron: '0 9 * * 1-5'
+  
+      
 jobs:
   test:
     timeout-minutes: 60
@@ -19,7 +57,30 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      run: npx playwright test --project=event_chromium
+      run: |
+        PROJECT="${{ github.event.inputs.project || 'event_chromium' }}"
+        GREP="${{ github.event.inputs.grep || '' }}"
+        CONFIG="${{ github.event.inputs.config || 'playwright.config.js' }}"
+        WORKERS="${{ github.event.inputs.workers || '2' }}"
+        RETRIES="${{ github.event.inputs.retries || '1' }}"
+        TIMEOUT="${{ github.event.inputs.timeout || '30000' }}"
+
+        # ✅ Correct — shell variable uses $CMD & ${{ }} reserved for github Actions expression — inputs, secrets, env, github context
+        CMD="npx playwright test --project=$PROJECT --config=$CONFIG --workers=$WORKERS --retries=$RETRIES \
+            --timeout=$TIMEOUT"
+        
+        if [[ "$GREP" != "" ]]; then
+        CMD="$CMD --grep='$GREP'"
+        fi
+        
+        echo "Trigger event name: ${{ github.event_name }}"
+        echo "CMD: $CMD"
+        
+        # eval treats that string as an actual command and runs it
+        # ↑ This is exactly same as typing directly:
+        # npx playwright test --project=chromium --headed
+        eval $CMD
+
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:

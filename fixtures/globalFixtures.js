@@ -1,5 +1,5 @@
 let { test: base } = require('@playwright/test');
-const { pommanager } = require('../../pages/events/pommanager');
+const { pommanager } = require('../pages/pommanager');
 // extending the test annotation to store test data as global fixture
 exports.events = base.extend({
     pommnger: async ({ page }, use) => {
