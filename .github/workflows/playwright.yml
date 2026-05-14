@@ -65,7 +65,7 @@ jobs:
        RETRIES="${{ github.event.inputs.retries || '1' }}"
        TIMEOUT="${{ github.event.inputs.timeout || '30000' }}"
       run: |
-        # ✅ Correct — shell variable uses $CMD & ${{ }} reserved for github Actions expression — inputs, secrets, env, github context
+        
         CMD="npx playwright test --project=$PROJECT --config=$CONFIG --workers=$WORKERS --retries=$RETRIES --timeout=$TIMEOUT"
             
         
@@ -77,10 +77,6 @@ jobs:
         echo "Branch        : ${{ github.ref_name }}"
         echo "Default branch: ${{ github.event.repository.default_branch }}"
         echo "CMD: $CMD"
-        
-        # eval treats that string as an actual command and runs it
-        # ↑ This is exactly same as typing directly:
-        # npx playwright test --project=chromium --headed
         eval $CMD
 
     - uses: actions/upload-artifact@v4
