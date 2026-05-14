@@ -57,14 +57,14 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
-      env: 
-       PROJECT="${{ github.event.inputs.project || 'event_chromium' }}"
-       GREP="${{ github.event.inputs.grep || '' }}"
-       CONFIG="${{ github.event.inputs.config || 'playwright.config.js' }}"
-       WORKERS="${{ github.event.inputs.workers || '2' }}"
-       RETRIES="${{ github.event.inputs.retries || '1' }}"
-       TIMEOUT="${{ github.event.inputs.timeout || '30000' }}"
       run: |
+        PROJECT="${{ github.event.inputs.project || 'event_chromium' }}"
+        GREP="${{ github.event.inputs.grep || '' }}"
+        CONFIG="${{ github.event.inputs.config || 'playwright.config.js' }}"
+        WORKERS="${{ github.event.inputs.workers || '2' }}"
+        RETRIES="${{ github.event.inputs.retries || '1' }}"
+        TIMEOUT="${{ github.event.inputs.timeout || '30000' }}"
+      
         
         CMD="npx playwright test --project=$PROJECT --config=$CONFIG --workers=$WORKERS --retries=$RETRIES --timeout=$TIMEOUT"
             
